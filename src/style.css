@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.my-header {
+  background-color: red;
+}
+
+.master > .fill{
+  height: auto;
+}
+
+.max-width {
+  max-width: 100%;
+}
+
+.min-ht-vh {
+  min-height: 100vh;
+}
+
+.hs-max-width-90 {
+  max-width: 90%;
+}
+
+.hs-max-width-85 {
+  max-width: 85%;
+}
+
+.hero-text-1 {
+  justify-self: center;
+  display: inline-block;
+}
+
+.hs-text-center {
+  text-align: center;
+}
+
+.hs-text-start {
+  text-align: left;
+}
+
+.hs-pb-100 {
+  padding-bottom: 100px;
+}
+
+.hs-pt-80 {
+  padding-top: 80px;
+}
+
+.hs-pb-80 {
+  padding-bottom: 80px;
+}
+
+.hs-pt-60 {
+  padding-top: 60px;
+}
+
+.hs-pt-30 {
+  padding-top: 30px;
+}
+
+.hs-pt-40 {
+  padding-top: 40px;
+}
+
+.hs-pb-40 {
+  padding-bottom: 40px;
+}
+
+.hs-pb-60 {
+  padding-bottom: 60px;
+}
+
+.hs-pb-100 {
+  padding-bottom: 100px;
+}
+
+.my-mb-44 {
+  margin-bottom: 44px;
+}
+
+.my-relative {
+  position: relative;
+}
+
+.my-absolute {
+  position: absolute;
+}

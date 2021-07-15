@@ -1,0 +1,35 @@
+.master {
+    width: 100%;
+    height: min-content;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url('../../../../public/images/houses2.jpg');
+    overflow: auto;
+    position: relative;
+    z-index: 2;
+}
+
+.hero {
+    width: 100%;
+    height: min-content;
+    overflow: auto;
+    position: relative;
+    z-index: 2;
+}
+  
+.master::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    opacity: 0.5;
+    display: block;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    
+    /*background: rgb(202, 202, 202);*/
+    background-color: #eee;
+    opacity: 0.9;
+}
