@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import Header, { HeaderBottomMargin } from '../Header';
+import Header, { HeaderBottomMargin } from '../../components/Header';
 import Hero from './Hero';
-import Footer from '../Footer';
-import EventHandlers from '../../../Utils/EventHandlers';
+import Footer from '../../components/Footer';
+import { prepareLandingPageSearch } from '../../utils/EventHandlers';
 import './style.css';
-
-EventHandlers();
 
 class LandingPage extends Component {
   constructor() {
@@ -13,9 +11,13 @@ class LandingPage extends Component {
     this.state = {};
   }
 
+  componentDidMount() {
+    prepareLandingPageSearch();
+  }
+
   render() {
     return (
-      <div className="2xl:container bg-red-500 min-ht-vh master">
+      <div className="2xl:container min-ht-vh master relative">
         <Header />
         <HeaderBottomMargin />
         <Hero />

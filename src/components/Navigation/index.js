@@ -47,12 +47,6 @@ const SearchNavigation = () => (
   </div>
 );
 
-export const getSearchString = () => {
-  const { search } = useLocation();
-  const params = new URLSearchParams(search);
-  return params.get('q');
-};
-
 const Navigation = () => {
   const location = useLocation();
   if (location.pathname.toLowerCase() === '/search') {

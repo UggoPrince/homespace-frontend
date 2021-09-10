@@ -32,6 +32,15 @@ module.exports = {
         test: /\.(png|jpe?g|gif)$/i,
         type: 'asset/resource',
       },
+      {
+        include: path.resolve(__dirname, './node_modules/react-image-gallery/styles/css/image-gallery.css'),
+        test: /\.(s[ac]ss|css)$/i,
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader',
+        ],
+      },
     ],
   },
   resolve: {

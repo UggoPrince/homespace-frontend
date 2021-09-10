@@ -13,6 +13,7 @@ const Hero = () => (
             name="searchText"
             id="homeSearchTextInput"
             placeholder="Address, City, Neighborhood..."
+            type="search"
             className="
           border-transparent
           focus:outline-none

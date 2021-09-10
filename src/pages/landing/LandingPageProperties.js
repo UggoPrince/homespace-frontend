@@ -1,6 +1,6 @@
 import React from 'react';
-import Properties from '../../../data/properties/properties';
-import { GET_PROPERTIES_FOR_LANDING_PAGE as queryString } from '../../../data/properties/queryString';
+import Properties from '../../data/properties/properties';
+import { GET_PROPERTIES_FOR_LANDING_PAGE as queryString } from '../../data/properties/queryString';
 
 const LandingPageProperties = () => (
   <div className="container hs-max-width-85 hs-pb-100">
