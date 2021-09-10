@@ -6,11 +6,12 @@ import { ApolloClient, ApolloProvider } from '@apollo/client';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import App from './App';
 import './style.css';
+import store from './utils/Store';
 
 const { API_URL } = process.env;
-// const title = 'React with Webpack and Babel';
 
 const httpLink = new HttpLink({
   uri: API_URL,
@@ -28,7 +29,9 @@ const client = new ApolloClient({
 ReactDOM.render(
   <Router>
     <ApolloProvider client={client}>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </ApolloProvider>
   </Router>,
   document.getElementById('app'),

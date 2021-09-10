@@ -1,0 +1,13 @@
+.pagination {
+    width: max-content;
+    vertical-align: middle;
+    height: 35px;
+}
+
+.pt5 {
+    padding-top: 4.5px;
+}
+
+.pb5 {
+    padding-bottom: 4.5px;
+}

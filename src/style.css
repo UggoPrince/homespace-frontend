@@ -14,6 +14,22 @@
   max-width: 100%;
 }
 
+.max-height {
+  max-height: 100%;
+}
+
+.half-width {
+  width: 50%;
+}
+
+.zero-width {
+  width: 0%;
+}
+
+.content-width {
+  width: fit-content;
+}
+
 .min-ht-vh {
   min-height: 100vh;
 }

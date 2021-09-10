@@ -17,22 +17,6 @@ const Properties = (props) => {
   );
 };
 
-export const SearchProperties = (props) => {
-  const { qString, search } = props;
-  const { loading, error, data } = useQuery(qString, {
-    variables: { search },
-  });
-  if (loading) return 'Loading...';
-  if (error) {
-    return `Error! ${error.message}`;
-  }
-  const { getProperties } = data;
-  const properties = getProperties.map((propObj) => <PropertyCard property={propObj} />);
-  return (
-    <div className="flex flex-row flex-wrap gap-10 lg:justify-between justify-evenly">
-      {properties}
-    </div>
-  );
-};
+export const PropertyDetailsFromSearch = (props) => {};
 
 export default Properties;
