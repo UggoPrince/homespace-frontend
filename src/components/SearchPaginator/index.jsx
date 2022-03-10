@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-curly-brace-presence */
-import React from 'react';
+// import React from 'react';
 import { connect } from 'react-redux';
 import Pagination from 'react-paginate';
 import { paginator } from '../../utils/EventHandlers';

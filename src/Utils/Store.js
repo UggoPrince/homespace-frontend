@@ -1,13 +1,14 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable use-isnan */
 import { createStore } from 'redux';
+import { getLocalStorage } from './LocalStorage';
 import { getSearchString, prepareStartQueryString } from './Urls';
 
 const { q } = getSearchString();
 let { start } = getSearchString();
 start = prepareStartQueryString(start);
 const initialState = {
-  q, propsSearchOffset: Number(start), propsSearchLimit: 10,
+  q, propsSearchOffset: Number(start), propsSearchLimit: 10, /* token: getLocalStorage('token'), */
 };
 
 const reducer = (state = initialState, action) => {

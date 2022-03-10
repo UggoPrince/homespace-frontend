@@ -1,6 +1,3 @@
-import React from 'react';
-// import bgImg from '../../../public/images/houses2.jpg';
-
 const Hero = () => (
   <div className="hero flex-grow">
     <div className="my-36 object-none object-center">

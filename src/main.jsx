@@ -2,16 +2,19 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ApolloClient, ApolloProvider } from '@apollo/client';
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { HttpLink } from 'apollo-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
+// import dotenv from 'dotenv';
+
 import App from './App';
-import './style.css';
+import './index.css';
 import store from './utils/Store';
 
-const { API_URL } = process.env;
+// dotenv.config();
+const API_URL = import.meta.env.VITE_API_URL;
+// const { API_URL } = process.env;
 
 const httpLink = new HttpLink({
   uri: API_URL,
@@ -34,7 +37,5 @@ ReactDOM.render(
       </Provider>
     </ApolloProvider>
   </Router>,
-  document.getElementById('app'),
+  document.getElementById('root'),
 );
-
-module.hot.accept();

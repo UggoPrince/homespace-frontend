@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { connect } from 'react-redux';
 import Header, { HeaderBottomMargin } from '../../components/Header';
 import { prepareSearchPageSearch } from '../../utils/EventHandlers';
