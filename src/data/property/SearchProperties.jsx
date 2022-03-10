@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React from 'react';
+// import React from 'react';
 import { connect } from 'react-redux';
 import { useQuery } from '@apollo/client';
 import PropertyCard from '../../components/PropertyCard';

@@ -78,3 +78,10 @@ export const paginator = (data) => {
   setSearchUrl(newUrl);
   // console.log(data); propsSearchOffset
 };
+
+export const prepareSignup = () => {
+  const signupForm = document.getElementById('signupForm');
+  signupForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+  });
+};

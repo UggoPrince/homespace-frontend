@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-one-expression-per-line */
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import {
   FaUsers, FaMapMarkerAlt, FaTimes, FaChevronCircleLeft, FaChevronCircleRight,
 } from 'react-icons/fa';

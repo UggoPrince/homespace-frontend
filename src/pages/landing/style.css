@@ -4,7 +4,7 @@
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    background-image: url('../../../public/images/houses2.jpg');
+    background-image: url('../../../images/houses2.jpg');
     overflow: auto;
     position: relative;
     z-index: 2;

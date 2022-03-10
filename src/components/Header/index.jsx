@@ -1,8 +1,8 @@
-import React from 'react';
 import { FaSearch } from 'react-icons/fa';
 import Logo from '../Logo';
 import Navigation from '../Navigation';
 import { getPath, itsThisPath } from '../../utils/Urls';
+import { useAuth } from '../../auth/AuthProvider';
 
 const SearchBar = (props) => {
   const { search } = props;
@@ -27,7 +27,11 @@ const SearchBar = (props) => {
   );
 };
 
-const addSearchBar = ({ search } = props) => ((itsThisPath('/search')) ? <SearchBar search={search} /> : '');
+const addSearchBar = ({ search } = props) => {
+  if (itsThisPath('/search')) return <SearchBar search={search} />;
+  if (itsThisPath('/') && useAuth.token) return <SearchBar search={search} />;
+  return <SearchBar />;
+};
 
 const Header = (props) => (
   <header className="container max-width h-auto inline-block z-10 sticky top-0 bg-white border border-b border-gray-300">
