@@ -36,12 +36,10 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-const store = createStore(reducer);
+export const store = createStore(reducer);
 
 export const setNewState = (newState) => {
   store.dispatch(newState);
 };
 
 export const getState = () => store.getState();
-
-export default store;

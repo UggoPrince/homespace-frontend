@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 // import { useLocation, useSearchParams } from 'react-router-dom';
-import store, { setNewState, getState } from './Store';
+import { store, setNewState } from './Store';
 import {
   // computeSearchPath,
   computeSearchUrl, getPath, getSearchString, setSearchUrl, setUrlOnAddressBar,
