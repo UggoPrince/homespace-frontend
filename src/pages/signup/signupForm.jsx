@@ -1,21 +1,20 @@
 // import 'regenerator-runtime/runtime';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useMutation } from '@apollo/client';
-import './style.css';
+import '../../components/Form/style.css';
 import toast from 'react-hot-toast';
-import Input from '../../components/Form/input';
-import Label from '../../components/Form/label';
-import ErrorDiv from '../../components/Form/errorDiv';
-import queryString from '../../data/user/queryString';
-import { handleErrors, clearErrorDivs } from '../../data/user/response';
+import TextField, { PasswordTextField } from '../../components/Input/textField';
+import { SIGNUP_USER_QUERY_STRING } from '../../data/user/queryString';
 import Alert, { notify } from '../../components/Alert';
-import { setNewState } from '../../utils/Store';
 import { useAuth } from '../../auth/AuthProvider';
+import Button from '../../components/Button';
+import useForm from '../../components/Form/useForm';
 
 const SignupForm = () => {
-  const { login } = useAuth();
+  const { errors, setErrors } = useForm();
+  const { loginUser } = useAuth();
   let alertLoadingId;
-  const [signUp, { loading, error, data }] = useMutation(queryString,
+  const [signUp, { loading, error, data }] = useMutation(SIGNUP_USER_QUERY_STRING,
     {
       errorPolicy: 'all',
     });
@@ -27,16 +26,15 @@ const SignupForm = () => {
       toast.remove(alertLoadingId);
       notify('Account created!', 3);
       const { token, user } = data.signUp;
-      login(token);
+      loginUser(token, user);
     }
     if (error) {
       toast.remove(alertLoadingId);
       if (error.networkError) notify('Network error. Try Again.', 2);
       if (error.graphQLErrors && error.graphQLErrors.length > 0) {
         notify(`${error.message}`, 2);
-        clearErrorDivs();
         const fieldError = error.graphQLErrors[0].error;
-        if (fieldError) handleErrors(fieldError, 'ErrorSignup');
+        if (fieldError) setErrors(fieldError);
       }
     }
   });
@@ -61,70 +59,38 @@ const SignupForm = () => {
   return (
     <div>
       <div className="container content-center">
-        <div className="flex flex-row pt-16 pb-28">
+        <div className="flex flex-row pt-10 pb-28">
           <form onSubmit={signup} method="POST" id="signupForm" className="mx-auto bg-white p-8 signupForm shadow-2xl rounded-lg">
             <div className="w-full inline-block">
               <div className="pb-5 inline-block max-w-full m-auto form-div-holder float-left">
-                <Label htmlFor="signupFirstName" value="First name" />
-                <Input name="firstname" type="text" isRequired />
-                <ErrorDiv id="firstnameErrorSignup" />
+                <TextField name="firstname" label="First Name" error={errors.firstname} required />
               </div>
               <div className="pb-5 inline-block max-w-full m-auto form-div-holder float-right">
-                <Label htmlFor="signupLastName" value="Last name" />
-                <Input name="lastname" type="text" isRequired />
-                <ErrorDiv id="lastnameErrorSignup" />
+                <TextField name="lastname" label="Last Name" error={errors.lastname} required />
               </div>
             </div>
             <div className="w-full inline-block">
               <div className="pb-5 inline-block max-w-full m-auto form-div-holder float-left">
-                <Label htmlFor="signupCountry" value="Country" />
-                <Input name="country" type="text" isRequired />
-                <ErrorDiv id="countryErrorSignup" />
+                <TextField name="country" label="Country" error={errors.country} required />
               </div>
               <div className="pb-5 inline-block max-w-full m-auto form-div-holder float-right">
-                <Label hFor="signupState" value="State" />
-                <Input name="state" type="text" isRequired />
-                <ErrorDiv id="stateErrorSignup" />
+                <TextField name="state" label="State" error={errors.state} required />
               </div>
             </div>
             <div className="pb-4">
-              <Label hFor="signupAddress" value="Address" />
-              <Input name="address" type="text" isRequired />
-              <ErrorDiv id="addressErrorSignup" />
+              <TextField name="address" label="Address" type="text" error={errors.address} required />
             </div>
             <div className="pb-5">
-              <Label hFor="signupEmail" value="Email" />
-              <Input id="signupEmail" name="email" autoComplete="email" type="email" isRequired />
-              <ErrorDiv id="emailErrorSignup" />
+              <TextField name="email" label="Email" error={errors.email} type="email" autoComplete="email" required />
             </div>
-            <div className="w-full inline-block">
-              <div className="pb-5 inline-block max-w-full m-auto form-div-holder float-left">
-                <Label hFor="signupPassword" value="Password" />
-                <Input name="password" type="password" isRequired />
-                <ErrorDiv id="passwordErrorSignup" />
-              </div>
-              <div className="pb-5 inline-block max-w-full m-auto form-div-holder float-right">
-                <Label hFor="signupConfirmPassword" value="Confirm Password" />
-                <Input name="confirmPassword" type="password" isRequired />
-              </div>
+            <div className="pb-5">
+              <PasswordTextField name="password" label="Password" error={errors.password} required />
+            </div>
+            <div className="pb-5">
+              <PasswordTextField name="confirmPassword" label="Confirm Password" error={errors.confirmPassword} required />
             </div>
             <div className="pt-5">
-              <button
-                id="signupButton"
-                type="submit"
-                className=" w-full
-              bg-indigo-600
-              hover:bg-blue-700
-              focus:outline-none
-              focus:ring-2
-              focus:ring-purple-600
-              focus:ring-opacity-50
-              text-white
-              py-2 px-2
-              rounded font-bold"
-              >
-                Sign Up
-              </button>
+              <Button id="signupButton" type="submit" text="Sign Up" />
             </div>
           </form>
         </div>
@@ -133,5 +99,7 @@ const SignupForm = () => {
     </div>
   );
 };
+
+// 8 characters minimum, One uppercase, lowercase and number.)
 
 export default SignupForm;

@@ -2,27 +2,36 @@ import React from 'react';
 import {
   useNavigate,
 } from 'react-router-dom';
-import { getLocalStorage, setLocalStorage } from '../utils/LocalStorage';
+import {
+  destroyLocalStorage, getLocalStorage, getUserFromLocalStorage, setLocalStorage,
+} from '../utils/LocalStorage';
 
 const AuthContext = React.createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const [token, setToken] = React.useState(getLocalStorage('token'));
-
-  const handleLogin = (token) => {
-    setToken(token);
+  const [user, setUser] = React.useState(getUserFromLocalStorage('user'));
+  const handleLogin = (token, user) => {
+    setLocalStorage('user', JSON.stringify(user));
     setLocalStorage('token', token);
-    navigate('/');
+    setToken(token);
+    setUser(user);
+    navigate('/', { replace: true });
   };
 
   const handleLogout = () => {
+    destroyLocalStorage('token');
+    destroyLocalStorage('user');
     setToken(null);
+    setUser(null);
+    navigate('/');
   };
 
   const value = {
     token,
-    login: handleLogin,
+    user,
+    loginUser: handleLogin,
     logout: handleLogout,
   };
 

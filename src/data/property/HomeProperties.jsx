@@ -1,17 +1,21 @@
 /* eslint-disable no-console */
+import React from 'react';
 import { connect } from 'react-redux';
 import HomePropertyAdapter from './HomePropertyAdapter';
+import { useAuth } from '../../auth/AuthProvider';
 import { queryApi } from '../../utils/Api';
 import './style.css';
 
-const SearchProperties = (props) => {
+const HomeProperties = (props) => {
   const {
-    qString, q, offset, limit,
+    qString, offset, limit,
   } = props;
-  const { loading, error, data } = queryApi(qString, { search: q, offset, limit });
-
+  const { user } = useAuth();
+  const { country } = user;
+  const { loading, error, data } = queryApi(qString, { search: country, offset, limit });
   if (loading) return 'Loading...';
   if (error) {
+    console.log(error);
     return `Error! ${error.message}`;
   }
   const { getProperties } = data;
@@ -20,7 +24,7 @@ const SearchProperties = (props) => {
     <HomePropertyAdapter
       properties={properties}
       count={count}
-      number={1}
+      number={2}
       loading={loading}
       data={data}
       offset={offset}
@@ -31,4 +35,4 @@ const SearchProperties = (props) => {
 // eslint-disable-next-line arrow-body-style
 const mapStateToProps = (state) => state;
 
-export default connect(mapStateToProps)(SearchProperties);
+export default connect(mapStateToProps)(HomeProperties);

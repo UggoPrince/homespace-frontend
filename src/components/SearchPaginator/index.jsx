@@ -1,38 +1,35 @@
-/* eslint-disable react/jsx-curly-brace-presence */
-// import React from 'react';
-import { connect } from 'react-redux';
+import { useEffect, useState } from 'react';
 import Pagination from 'react-paginate';
-import { paginator } from '../../utils/EventHandlers';
-// import { computeSearchUrl } from '../../utils/Urls';
+import { moveToNewPage } from '../../utils/EventHandlers';
 import './style.css';
 
 const Pager = (props) => {
   const {
-    counted, dispatch, offset, searchString,
+    counted, offset,
   } = props;
   const totalPageCount = Math.ceil(counted / 10);
   const handleClick = (data) => {
-    const { selected } = data;
-    // dispatch({ type: 'SEARCH_PAGE_CURRENT_INDEX', searchPageIndex: selected });
-    paginator(data);
+    moveToNewPage(data);
   };
-  // const generateHref = (p) => { const skip = p * 10; return computeSearchUrl(searchString, skip); };
   const disableInitialCallback = true;
-  const index = (offset / 10);
+  const [index, setIndex] = useState((offset / 10));
+  useEffect(() => {
+    setIndex((offset / 10));
+  }, [offset]);
   return (
     <Pagination
       pageCount={totalPageCount}
       onPageChange={handleClick}
-      initialPage={index}
+      forcePage={index}
       disableInitialCallback={disableInitialCallback}
       previousLabel="Previous"
       nextLabel="Next"
-      containerClassName="pagination flex flex-row align-middle"
+      containerClassName="pagination flex flex-row flex-wrap align-middle"
       pageLinkClassName="pr-4 pl-4 border-0 flex-1 pt5 pb5"
       pageClassName="text-center flex flex-col border"
       activeLinkClassName="bg-indigo-600 text-white"
-      breakClassName="text-center flex-1 border align-middle"
-      breakLinkClassName="pr-4 pl-4 border-0 m-auto"
+      breakClassName="text-center flex flex-col border"
+      breakLinkClassName="pr-4 pl-4 border-0 flex-1 pt5 pb5"
       previousClassName="mr-2 m-auto border flex flex-col"
       nextClassName="ml-2 m-auto border flex flex-col"
       previousLinkClassName="flex-1 align-middle pr-4 pl-4 pt5 pb5"
@@ -43,4 +40,4 @@ const Pager = (props) => {
   );
 };
 
-export default connect()(Pager); //
+export default Pager; //
