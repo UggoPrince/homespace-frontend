@@ -10,4 +10,13 @@ export const getLocalStorage = (key) => {
   return localStorage.getItem(k);
 };
 
-export const destroyLocalStorage = (key) => { localStorage.removeItem(key); };
+export const getUserFromLocalStorage = (key) => {
+  const user = getLocalStorage(key);
+  if (user) return JSON.parse(user);
+  return user;
+};
+
+export const destroyLocalStorage = (key) => {
+  const k = `${getWebUrl()}_${key}`;
+  localStorage.removeItem(k);
+};
