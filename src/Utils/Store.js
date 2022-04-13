@@ -38,11 +38,10 @@ const reducer = (state = initialState, action) => {
 
 const store = createStore(reducer);
 
-const setNewState = (newState) => {
+export const setNewState = (newState) => {
   store.dispatch(newState);
 };
 
-const getState = () => store.getState();
+export const getState = () => store.getState();
 
 export default store;
-export { setNewState, getState }; //
