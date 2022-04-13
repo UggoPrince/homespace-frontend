@@ -2,8 +2,8 @@ import { FaSearch } from 'react-icons/fa';
 import { Component, useEffect, useState } from 'react';
 import Logo from '../Logo';
 import Navigation from '../Navigation';
-import { itsThisPath } from '../../utils/Urls';
-import { setNavMenuButtonEvent, prepareSearchPageSearch } from '../../utils/EventHandlers';
+import { itsThisPath } from '../../Utils/Urls';
+import { setNavMenuButtonEvent, prepareSearchPageSearch } from '../../Utils/EventHandlers';
 
 const SearchBar = (props) => {
   const { search } = props;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Pagination from 'react-paginate';
-import { moveToNewPage } from '../../utils/EventHandlers';
+import { moveToNewPage } from '../../Utils/EventHandlers';
 import './style.css';
 
 const Pager = (props) => {

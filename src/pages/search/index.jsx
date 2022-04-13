@@ -2,7 +2,7 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import Header, { HeaderBottomMargin } from '../../components/Header';
-import { prepareSearchPageSearch } from '../../utils/EventHandlers';
+import { prepareSearchPageSearch } from '../../Utils/EventHandlers';
 import { GET_SEARCHED_PROPERTIES as queryString } from '../../data/property/queryString';
 import SearchProperties from '../../data/property/SearchProperties';
 import Properties from '../../data/property/PropertiesAndDetailsBox';
