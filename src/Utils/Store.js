@@ -27,6 +27,10 @@ const reducer = (state = initialState, action) => {
       return { ...state, searchPageIndex: action.searchPageIndex };
     case 'SEARCH_PAGE_INITIAL_INDEX':
       return { ...state, initialPageIndex: action.initialPageIndex };
+    case 'SET_OFFSET':
+      return { ...state, propsSearchOffset: action.start };
+    case 'SET_QUERY_AND_OFFSET':
+      return { ...state, q: action.q, propsSearchOffset: action.start };
     default:
       return state;
   }

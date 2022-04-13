@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 export const GET_PROPERTIES_FOR_LANDING_PAGE = gql`
-{
+query {
     getProperties {
       properties {
         id
@@ -19,7 +19,7 @@ export const GET_PROPERTIES_FOR_LANDING_PAGE = gql`
 `;
 
 export const GET_SEARCHED_PROPERTIES = gql`
-query ($offset: Int, $limit: Int, $search: String!) {
+query ($offset: Int, $limit: Int, $search: String) {
   getProperties(offset: $offset, limit: $limit, search: $search) {
     properties {
       id

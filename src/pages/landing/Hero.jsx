@@ -2,10 +2,10 @@ const Hero = () => (
   <div className="hero flex-grow">
     <div className="my-36 object-none object-center">
       <div className="hs-text-center">
-        <div className="hero-text-1 text-6xl text-blue-800 font-bold font-serif">Find A Space</div>
+        <div className="hero-text-1 text-6xl text-indigo-600 font-bold font-serif">Find A Space</div>
       </div>
       <div className="hs-text-center hs-pt-60 hs-pb-40 flex-grow">
-        <form id="searchForm" method="GET" action="/search">
+        <form id="searchForm" method="POST">
           <input
             name="searchText"
             id="homeSearchTextInput"

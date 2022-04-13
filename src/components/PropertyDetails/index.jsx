@@ -9,7 +9,7 @@ import isEmptyString from '../../utils/Checkers';
 const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 
 export default (props) => {
-  const { property } = props;
+  const { property, number } = props;
   const {
     id, agency, address, state, country, propertyType, intent, price, photos, status, description,
   } = property;
@@ -61,7 +61,7 @@ export default (props) => {
       <div className="pb-2 flex flex-row">
         <div className="flex-1 ">
           <FaTimes
-            onClick={(e) => { closeCardDetails(e); }}
+            onClick={(e) => { closeCardDetails(e, number); }}
             className="cursor-pointer inline-block bg-gray-500 text-white rounded-full text-3xl p-2 hover:bg-gray-700"
           />
         </div>
