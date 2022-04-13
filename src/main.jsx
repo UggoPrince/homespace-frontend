@@ -9,7 +9,11 @@ import { Provider } from 'react-redux';
 import { ThemeProvider } from '@mui/material';
 import App from './App';
 import './index.css';
+<<<<<<< HEAD
 import { store } from './utils/Store';
+=======
+import store from './utils/Store';
+>>>>>>> 40a97e68baf1f6976caf7745b25789ed04fbe95c
 import theme from './theme';
 
 const API_URL = import.meta.env.VITE_API_URL;
