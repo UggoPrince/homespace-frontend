@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Header, { HeaderBottomMargin } from '../../components/Header';
 import Hero from './Hero';
 import Footer from '../../components/Footer';
-import { prepareLandingPageSearch } from '../../utils/EventHandlers';
+import { prepareLandingPageSearch } from '../../Utils/EventHandlers';
 import './style.css';
 
 class LandingPage extends Component {

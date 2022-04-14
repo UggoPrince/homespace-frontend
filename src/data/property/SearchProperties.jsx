@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { connect } from 'react-redux';
 import HomePropertyAdapter from './HomePropertyAdapter';
-import { queryApi } from '../../utils/Api';
+import { queryApi } from '../../Utils/Api';
 import './style.css';
 
 const SearchProperties = (props) => {

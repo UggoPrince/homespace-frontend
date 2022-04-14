@@ -1,6 +1,6 @@
 import PropertyCard from '../../components/PropertyCard';
 import Pager from '../../components/SearchPaginator';
-import { displayCardDetails } from '../../utils/EventHandlers';
+import { displayCardDetails } from '../../Utils/EventHandlers';
 
 export default (props) => {
   const {

@@ -4,7 +4,7 @@ import {
 } from 'react-router-dom';
 import {
   destroyLocalStorage, getLocalStorage, getUserFromLocalStorage, setLocalStorage,
-} from '../utils/LocalStorage';
+} from '../Utils/LocalStorage';
 
 const AuthContext = React.createContext(null);
 

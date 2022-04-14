@@ -3,8 +3,8 @@ import { useEffect } from 'react';
 import {
   FaUsers, FaMapMarkerAlt, FaTimes, FaChevronCircleLeft, FaChevronCircleRight,
 } from 'react-icons/fa';
-import { closeCardDetails } from '../../utils/EventHandlers';
-import isEmptyString from '../../utils/Checkers';
+import { closeCardDetails } from '../../Utils/EventHandlers';
+import isEmptyString from '../../Utils/Checkers';
 
 const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 

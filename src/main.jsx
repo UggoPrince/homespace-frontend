@@ -9,7 +9,7 @@ import { Provider } from 'react-redux';
 import { ThemeProvider } from '@mui/material';
 import App from './App';
 import './index.css';
-import { store } from './utils/Store';
+import { store } from './Utils/Store';
 import theme from './theme';
 
 const API_URL = import.meta.env.VITE_API_URL;
