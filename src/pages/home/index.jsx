@@ -28,13 +28,12 @@ class HomePage extends Component {
 
   render() {
     const { property } = this.props;
-    // const { q } = getSearchString();
     const { q, propsSearchOffset } = this.props;
     const qEmpty = q === undefined;
     return (
       <Home qEmpty={qEmpty} start={propsSearchOffset} q={q}>
         <div className="2xl:container min-ht-vh relative">
-          <Header search={q} />
+          <Header search={q} offset={propsSearchOffset} />
           <Properties property={property} number={2}>
             <HeaderBottomMargin />
             <HomeBody qEmpty={qEmpty} />

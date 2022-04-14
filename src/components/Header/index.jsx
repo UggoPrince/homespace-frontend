@@ -32,9 +32,11 @@ const SearchBar = (props) => {
   );
 };
 
-const addSearchBar = ({ search } = props) => {
-  if (itsThisPath('/search')) return <SearchBar search={search} />;
-  if (itsThisPath('/')) return <SearchBar search={search} />;
+const addSearchBar = (props) => {
+  const { search, offset } = props;
+  if (itsThisPath('/')) {
+    if (search || offset) return <SearchBar search={search} />;
+  }
   return null;
 };
 
