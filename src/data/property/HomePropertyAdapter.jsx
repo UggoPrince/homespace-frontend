@@ -25,7 +25,7 @@ export default (props) => {
       <div className="w-auto mb-10 text-lg">
         {itemCount}
       </div>
-      <div className="flex flex-row flex-wrap gap-8 justify-center md:justify-start lg:justify-items-stretch w-auto">
+      <div className="flex flex-row flex-wrap gap-8 justify-center lg:justify-items-stretch w-auto">
         {propertiesInDom}
       </div>
       <div className="mt-16 w-full">
