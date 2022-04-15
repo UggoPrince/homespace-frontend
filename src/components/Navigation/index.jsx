@@ -12,7 +12,7 @@ const HSLink = (props) => {
         className="
       md:ml-5 cursor-pointer text-indigo-600
       font-semibold hover:bg-indigo-600 text-center
-      hover:text-white py-2 px-2 md:rounded w-40 md:w-full"
+      hover:text-white py-2 px-3 md:rounded w-40 md:w-full"
       >
         {text}
       </Link>
@@ -33,9 +33,12 @@ const HSButton = (props) => {
       hover:bg-indigo-600
       hover:text-white
       py-2
-      px-2
+      px-3
       text-center
-      md:rounded w-40 md:w-full"
+      md:rounded
+      w-40
+      md:w-full
+      md:ml-5"
     >
       {text}
     </button>
@@ -50,9 +53,9 @@ const NavBlock = ({ children }) => (
       absolute
       border-indigo-600
       top-12
-      right-10
+      right-1
       border-2 rounded
-      bg-white
+      bg-white md:visible
       md:bg-transparent
       md:right-0
       md:top-0
@@ -61,7 +64,7 @@ const NavBlock = ({ children }) => (
       md:relative
       md:border-solid
       md:border-0
-      md:border-transparent md:"
+      md:border-transparent"
       id="navMenu"
     >
       {children}

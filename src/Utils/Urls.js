@@ -14,17 +14,16 @@ export const itsThisPath = (path) => {
 
 export const computeSearchUrl = (searchText, start = 0) => {
   let searchUrl;
-  // if (itsThisPath('/search')) searchUrl = `${window.location.origin}/search?q=${searchText}&start=${start}`;
-  // if (itsThisPath('/')) {
   searchUrl = `${window.location.origin}`;
   if (searchText) searchUrl += `?q=${searchText}&start=${start}`;
   else searchUrl += `?start=${start}`;
-  // }
-  // console.log(searchUrl);
   return searchUrl;
 };
 
-export const computeSearchPath = (searchText, start = 0) => `?q=${searchText}&start=${start}`;
+export const computeSearchPath = (searchText, start = 0) => {
+  if (searchText) return `?q=${searchText}&start=${start}`;
+  return `?start=${start}`;
+};
 
 export const setSearchUrl = (url) => { window.location.href = url; };
 

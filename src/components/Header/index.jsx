@@ -4,6 +4,7 @@ import Logo from '../Logo';
 import Navigation from '../Navigation';
 import { itsThisPath } from '../../Utils/Urls';
 import { setNavMenuButtonEvent, prepareSearchPageSearch } from '../../Utils/EventHandlers';
+import { useAuth } from '../../auth/AuthProvider';
 
 const SearchBar = (props) => {
   const { search } = props;
@@ -13,11 +14,12 @@ const SearchBar = (props) => {
   }, [search]);
   return (
     <div className="container hs-max-width-85 mx-auto mb-5">
-      <form id="searchForm2" className=" w-3/5 py-2 px-2 rounded-3xl border border-gray-300">
+      <form id="searchForm2" className="w-full md:w-5/6 max-w-2xl py-2 px-2 rounded-3xl border border-gray-300">
         <input
           type="search"
           name="searchText"
           id="searchPageSearchTextInput"
+          placeholder="Search..."
           className=" border-transparent focus:outline-none
           py-1 px-3
           rounded-tl-xl rounded-bl-xl w-11/12 min-w-min"
@@ -32,10 +34,11 @@ const SearchBar = (props) => {
   );
 };
 
-const addSearchBar = (props) => {
+const AddSearchBar = ({ props }) => {
+  const { token } = useAuth();
   const { search, offset } = props;
   if (itsThisPath('/')) {
-    if (search || offset) return <SearchBar search={search} />;
+    if (search || offset || token) return <SearchBar search={search} />;
   }
   return null;
 };
@@ -53,7 +56,7 @@ export default class Header extends Component {
           <Logo />
           <Navigation />
         </div>
-        {addSearchBar(this.props)}
+        <AddSearchBar props={this.props} />
       </header>
     );
   }
@@ -72,6 +75,6 @@ export default class Header extends Component {
 export const HeaderBottomMargin = () => (
   <div>
     <br />
-    <div className="my-mb-44 max-width my-relative" />
+    <div className="my-mb-10 max-width my-relative" />
   </div>
 );
