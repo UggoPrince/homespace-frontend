@@ -1,14 +1,18 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {
   useNavigate,
 } from 'react-router-dom';
 import {
   destroyLocalStorage, getLocalStorage, getUserFromLocalStorage, setLocalStorage,
 } from '../Utils/LocalStorage';
+import { computeSearchPath, itsThisPath } from '../Utils/Urls';
 
 const AuthContext = React.createContext(null);
 
-export const AuthProvider = ({ children }) => {
+const AuthProvider = (props) => {
+  const { children, q, propsSearchOffset } = props;
+  const start = propsSearchOffset;
   const navigate = useNavigate();
   const [token, setToken] = React.useState(getLocalStorage('token'));
   const [user, setUser] = React.useState(getUserFromLocalStorage('user'));
@@ -17,7 +21,11 @@ export const AuthProvider = ({ children }) => {
     setLocalStorage('token', token);
     setToken(token);
     setUser(user);
-    navigate('/', { replace: true });
+    let url = '/';
+    if (q && !start) url += computeSearchPath(q, start);
+    else if (!q && start) url += computeSearchPath(q, start);
+    else if (q && start) url += computeSearchPath(q, start);
+    navigate(url, { replace: true });
   };
 
   const handleLogout = () => {
@@ -25,7 +33,7 @@ export const AuthProvider = ({ children }) => {
     destroyLocalStorage('user');
     setToken(null);
     setUser(null);
-    navigate('/');
+    if (!itsThisPath('/')) navigate('/');
   };
 
   const value = {
@@ -41,5 +49,9 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
+const mapStateToProps = (state) => state;
+
+export default connect(mapStateToProps)(AuthProvider);
 
 export const useAuth = () => React.useContext(AuthContext);

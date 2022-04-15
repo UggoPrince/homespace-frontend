@@ -79,18 +79,16 @@ export const closeCardDetails = (e, num) => {
   propertyDetailsDiv.style.width = '0%';
   propertiesDiv.style.width = '100%';
   propertyDetailsDiv.style.display = 'none';
-  // contentDiv.innerText = '';
 };
 
 export const moveToNewPage = (data) => {
   const { selected } = data;
   const offset = selected * 10;
   const { q } = getSearchString();
-  if (q) {
-    const newUrl = computeSearchUrl(q, offset);
-    setUrlOnAddressBar(newUrl, 'Home');
-    // history.push(newUrl);
-  }
+  let newUrl;
+  if (q) newUrl = computeSearchUrl(q, offset);
+  else newUrl = computeSearchUrl(null, offset);
+  setUrlOnAddressBar(newUrl, 'Home');
   setNewState({ type: 'SET_OFFSET', start: offset });
 };
 
@@ -100,8 +98,6 @@ export const paginator = (data) => {
   const { q } = getSearchString();
   const newUrl = computeSearchUrl(q, offset);
   retrieveProperties(q, offset);
-  // setSearchUrl(newUrl);
-  // console.log(data); propsSearchOffset
 };
 
 export const prepareSignup = () => {
@@ -130,11 +126,8 @@ export const setNavMenuButtonEvent = () => {
   });
 };
 
-/* window.addEventListener('DOMContentLoaded', (e) => {
-  setNavMenuButtonEvent();
-}); */
-
 window.onpopstate = () => {
   const path = getPath();
+  console.log('yes');
   if (path === '/' || path === '') rerenderProperties();
 };
