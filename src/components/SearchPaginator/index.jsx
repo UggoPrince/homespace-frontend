@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react';
 import Pagination from 'react-paginate';
-import { moveToNewPage } from '../../Utils/EventHandlers';
 import './style.css';
 
 const Pager = (props) => {
   const {
-    counted, offset,
+    counted, offset, pageChanger,
   } = props;
   const totalPageCount = Math.ceil(counted / 10);
   const handleClick = (data) => {
-    moveToNewPage(data);
+    pageChanger(data);
   };
   const disableInitialCallback = true;
   const [index, setIndex] = useState((offset / 10));

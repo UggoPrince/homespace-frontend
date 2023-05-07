@@ -1,12 +1,18 @@
 import { connect } from 'react-redux';
-import { GET_SEARCHED_PROPERTIES as queryString } from '../../data/property/queryString';
+import { GET_SEARCHED_PROPERTIES as queryString, GET_PROPERTIES_START_WITH_COUNTRY as queryString2 } from '../../data/property/queryString';
 import HomeProperties from '../../data/property/HomeProperties';
 import SearchProperties from '../../data/property/SearchProperties';
 
 const Body = (props) => {
-  const { qEmpty, offset, limit } = props;
-  if (qEmpty) return <HomeProperties qString={queryString} offset={offset} limit={limit} />;
-  return <SearchProperties qString={queryString} offset={offset} limit={limit} />;
+  const {
+    qEmpty, offset, limit, q,
+  } = props;
+  return (
+    <>
+      {qEmpty && <HomeProperties qString={queryString2} offset={offset} limit={limit} searchType={2} />}
+      {!qEmpty && <SearchProperties qString={queryString} offset={offset} limit={limit} searchType={2} />}
+    </>
+  );
 };
 
 const mapStateToProps = (state) => ({

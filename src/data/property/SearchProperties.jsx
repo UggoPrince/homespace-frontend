@@ -6,7 +6,7 @@ import './style.css';
 
 const SearchProperties = (props) => {
   const {
-    qString, q, offset, limit,
+    qString, q, offset, limit, searchType,
   } = props;
   const { loading, error, data } = queryApi(qString, { search: q, offset, limit });
 
@@ -14,17 +14,17 @@ const SearchProperties = (props) => {
   if (error) {
     return `Error! ${error.message}`;
   }
-  const { getProperties } = data;
-  const { properties, count } = getProperties;
   return (
-    <HomePropertyAdapter
-      properties={properties}
-      count={count}
-      number={1}
-      loading={loading}
-      data={data}
-      offset={offset}
-    />
+    <>
+      {data && data?.getProperties && (
+      <HomePropertyAdapter
+        number={searchType}
+        loading={loading}
+        data={data?.getProperties}
+        offset={offset}
+      />
+      )}
+    </>
   );
 };
 

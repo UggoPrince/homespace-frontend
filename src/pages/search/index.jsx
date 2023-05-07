@@ -22,11 +22,11 @@ class Search extends Component {
       return Redirect;
     }
     return (
-      <div className="2xl:container min-ht-vh relative">
+      <div className="w-full min-ht-vh relative">
         <Header search={q} />
         <Properties property={property} number={1}>
           <HeaderBottomMargin />
-          <SearchProperties qString={queryString} offset={offset} limit={limit} />
+          <SearchProperties qString={queryString} offset={offset} limit={limit} searchType={1} />
         </Properties>
       </div>
     );

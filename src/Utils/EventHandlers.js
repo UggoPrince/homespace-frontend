@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 // import { useLocation, useSearchParams } from 'react-router-dom';
+import { validateImageFile } from './Checkers';
 import { store, setNewState } from './Store';
 import {
   // computeSearchPath,
@@ -7,15 +8,24 @@ import {
 } from './Urls';
 
 const runSearch = (form) => {
-  const searchText = form.elements.searchText.value;
-  if (searchText !== '') {
+  const { searchText, searchTextForAgency } = form.elements;
+  if (searchText) {
     // computeSearchUrl(searchText);
-    const newUrl = computeSearchUrl(searchText);
-    setNewState({ type: 'SEARCH_PROPERTIES', q: searchText, start: 0 });
+    let { value } = searchText;
+    value = value.trim();
+    const newUrl = computeSearchUrl(value);
+    setNewState({ type: 'SEARCH_PROPERTIES', q: value, start: 0 });
     // setSearchUrl(newUrl);
     setUrlOnAddressBar(newUrl, 'Home');
     //
     // history.push(newUrl);
+  } else if (searchTextForAgency) {
+    let { value } = searchTextForAgency;
+    value = value.trim();
+    const newUrl = computeSearchUrl(value, 0, '/agency');
+    setNewState({ type: 'SEARCH_AGENCIES', w: value, start: 0 });
+    // setSearchUrl(newUrl);
+    setUrlOnAddressBar(newUrl, 'Agency');
   }
 };
 
@@ -64,24 +74,23 @@ export const displayCardDetails = (e, property, num) => {
   store.dispatch({ type: 'PROPERTY_DETAILS_FROM_SEARCH', property });
   const propertyDetailsDiv = document.getElementById(`propertyDetailsFromSearchDiv${num}`);
   const propertiesDiv = document.getElementById(`propertiesDiv${num}`);
-  // const contentDiv = document.getElementById('propertyDetailsFromSearchDivContent');
+  propertyDetailsDiv.classList.remove('hidden');
   propertiesDiv.style.width = '60%';
-  propertyDetailsDiv.style.display = 'inline-block';
   propertyDetailsDiv.style.width = '40%';
   propertyDetailsDiv.style.minWidth = '400px';
-  // contentDiv.innerHTML = (() => <div>{property.state}</div>);
 };
 
 export const closeCardDetails = (e, num) => {
   const propertyDetailsDiv = document.getElementById(`propertyDetailsFromSearchDiv${num}`);
   const propertiesDiv = document.getElementById(`propertiesDiv${num}`);
-  // const contentDiv = document.getElementById('propertyDetailsFromSearchDivContent');
   propertyDetailsDiv.style.width = '0%';
+  propertyDetailsDiv.style.minWidth = '0px';
   propertiesDiv.style.width = '100%';
-  propertyDetailsDiv.style.display = 'none';
+  store.dispatch({ type: 'PROPERTY_DETAILS_FROM_SEARCH', property: null });
+  propertyDetailsDiv.classList.add('hidden');
 };
 
-export const moveToNewPage = (data) => {
+export const moveToNewPropertyPage = (data) => {
   const { selected } = data;
   const offset = selected * 10;
   const { q } = getSearchString();
@@ -90,6 +99,17 @@ export const moveToNewPage = (data) => {
   else newUrl = computeSearchUrl(null, offset);
   setUrlOnAddressBar(newUrl, 'Home');
   setNewState({ type: 'SET_OFFSET', start: offset });
+};
+
+export const moveToNewAgencyPage = (data) => {
+  const { selected } = data;
+  const offset = selected * 10;
+  const { q } = getSearchString();
+  let newUrl;
+  if (q) newUrl = computeSearchUrl(q, offset, '/agency');
+  else newUrl = computeSearchUrl(null, offset, '/agency');
+  setUrlOnAddressBar(newUrl, 'Agency');
+  setNewState({ type: 'SET_OFFSET_AGENCY', start: offset });
 };
 
 export const paginator = (data) => {
@@ -126,8 +146,21 @@ export const setNavMenuButtonEvent = () => {
   });
 };
 
+export const setImageForUpload = (e, setFile) => {
+  const file = e.target.files[0];
+  const error = validateImageFile(file);
+  let fileUrl = null;
+  if (file) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event) => {
+      fileUrl = event.target.result;
+      setFile(file, fileUrl, error);
+    };
+  }
+};
+
 window.onpopstate = () => {
   const path = getPath();
-  console.log('yes');
   if (path === '/' || path === '') rerenderProperties();
 };

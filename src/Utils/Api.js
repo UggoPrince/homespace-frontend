@@ -1,4 +1,14 @@
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery, useLazyQuery } from '@apollo/client';
 
-// eslint-disable-next-line import/prefer-default-export
-export const queryApi = (qString, payLoad) => useQuery(qString, { variables: payLoad });
+export const queryApi = (qString, payLoad, skip = false, ...rest) => useQuery(qString, {
+  variables: payLoad, notifyOnNetworkStatusChange: true, skip,
+});
+
+export const mutateApi = (qString, ...rest) => useMutation(qString, { errorPolicy: 'all', ...rest });
+
+export const queryApiLazy = (qString, payLoad) => useLazyQuery(qString, { variables: payLoad, notifyOnNetworkStatusChange: true });
+
+export const fetchApi = (url) => fetch(url, { headers: { 'Access-Control-Allow-Origin': '*' } }).then(async (res) => {
+  const response = await res.json();
+  return response;
+});

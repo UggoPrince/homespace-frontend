@@ -1,16 +1,17 @@
+/* eslint-disable react/prefer-stateless-function */
 import { Component } from 'react';
+import { FaMapMarkerAlt } from 'react-icons/fa';
+import countryToCurrency from 'country-to-currency';
+import { displayCardDetails } from '../../Utils/EventHandlers';
+import { countryNameToCode } from '../../Utils/constants';
 import './style.css';
 
 class PropertyCard extends Component {
-  constructor(props) {
-    super(props);
-    this.property = props.property;
-  }
-
   render() {
-    const { property } = this;
+    const { property } = this.props;
+    const { number } = this.props;
     const {
-      photos, intent, price, propertyType, address,
+      photos, intent, price, propertyType, address, currency, country,
     } = property;
     let photo1;
     if (photos.length > 0 && photos[0] !== null) {
@@ -19,18 +20,29 @@ class PropertyCard extends Component {
     }
     const theIntent = intent.charAt(0).toUpperCase() + intent.slice(1);
     return (
-      <div className="propCard rounded-lg">
-        <div className="cardImageDiv relative rounded-t-lg" style={{ backgroundImage: `url(${photo1})` }}>
-          <div className="text-white font-medium inline-block absolute bottom-7 left-2">
-            For
-            {' '}
-            {theIntent}
+      <div
+        onClick={(e) => displayCardDetails(e, property, number)}
+        className="prop-card"
+      >
+        <div className="card-image" style={{ backgroundImage: `url(${photo1})` }}>
+          <div className="price-tag">
+            <div className="font-medium inline-block">
+              For
+              {' '}
+              {theIntent}
+            </div>
+            <div className="font-bold">
+              {currency
+                ? price?.toLocaleString(
+                  countryNameToCode[country], { style: 'currency', currency },
+                )
+                : price?.toLocaleString(price)}
+            </div>
           </div>
-          <div className="text-white font-bold absolute bottom-2 left-2">{price}</div>
         </div>
         <div className="px-2 py-2">
-          <div>{propertyType}</div>
-          <div>{address}</div>
+          <div className="text-tertiary text-md capitalize">{propertyType}</div>
+          <div className="text-sm truncate">{address}</div>
         </div>
       </div>
     );

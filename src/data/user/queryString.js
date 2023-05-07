@@ -31,7 +31,7 @@ mutation (
       email: $email,
       password: $password) {
     user {
-      id, country, state
+      id, country, state, firstname, lastname, profile { hasAgency }
     }
     token
   }

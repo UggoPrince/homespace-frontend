@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import {
   FaUsers, FaMapMarkerAlt, FaTimes, FaChevronCircleLeft, FaChevronCircleRight,
 } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import { closeCardDetails } from '../../Utils/EventHandlers';
 import isEmptyString from '../../Utils/Checkers';
 
@@ -57,7 +58,7 @@ export default (props) => {
     }
   };
   return (
-    <div>
+    <div id="propertyDiv" className="propertyDetails">
       <div className="pb-2 flex flex-row">
         <div className="flex-1 ">
           <FaTimes
@@ -83,7 +84,7 @@ export default (props) => {
             <img id="detailsDivImg" src={photo1} alt={property.title} className=" m-auto object-center h-72" />
           </div>
           <div>
-            <div className=" text-indigo-600 mt-6 cursor-pointer"><FaUsers className="inline text-sm" /> {agency.name}</div>
+            <Link to={`/agencies/${agency.username}`} className=" text-indigo-600 mt-6 cursor-pointer"><FaUsers className="inline text-sm" /> {agency.name}</Link>
             <div className=" text-gray-700 text-lg mb-2 mt-3">{title}</div>
             <div className="mb-2">
               <FaMapMarkerAlt className=" text-red-400 inline" />

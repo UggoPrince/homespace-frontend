@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 .my-header {
   background-color: red;
 }
@@ -101,4 +102,36 @@
 
 .my-absolute {
   position: absolute;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+*{
+  scrollbar-width: thin;
+  scrollbar-color: #0066F1;
+}
+*::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #bbb;/*grey;/*rgb(76, 70, 229);*/
+  border-radius: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #eee;
+  border-radius: 12px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
 }

@@ -8,6 +8,11 @@
     max-width: 90%;
 }
 
+.createAgencyForm {
+    width: 50rem;
+    max-width: 100%;
+}
+
 .div_con_For_input {
     width: 15rem;
     max-width: 100%;

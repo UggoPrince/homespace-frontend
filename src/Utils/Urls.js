@@ -12,9 +12,9 @@ export const itsThisPath = (path) => {
   return pathname === path;
 };
 
-export const computeSearchUrl = (searchText, start = 0) => {
+export const computeSearchUrl = (searchText, start = 0, path = '') => {
   let searchUrl;
-  searchUrl = `${window.location.origin}`;
+  searchUrl = `${window.location.origin}${path}`;
   if (searchText) searchUrl += `?q=${searchText}&start=${start}`;
   else searchUrl += `?start=${start}`;
   return searchUrl;

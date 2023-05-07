@@ -1,14 +1,13 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable use-isnan */
-import { createStore } from 'redux';
-import { getLocalStorage } from './LocalStorage';
+import { legacy_createStore as createStore } from 'redux';
 import { getSearchString, prepareStartQueryString } from './Urls';
 
 const { q } = getSearchString();
 let { start } = getSearchString();
 start = prepareStartQueryString(start);
 const initialState = {
-  q, propsSearchOffset: Number(start), propsSearchLimit: 10, /* token: getLocalStorage('token'), */
+  q, propsSearchOffset: Number(start), propsSearchLimit: 10, w: q, agencySearchOffset: Number(start), agencySearchLimit: 10, /* token: getLocalStorage('token'), */
 };
 
 const reducer = (state = initialState, action) => {
@@ -29,8 +28,12 @@ const reducer = (state = initialState, action) => {
       return { ...state, initialPageIndex: action.initialPageIndex };
     case 'SET_OFFSET':
       return { ...state, propsSearchOffset: action.start };
+    case 'SET_OFFSET_AGENCY':
+      return { ...state, agencySearchOffset: action.start };
     case 'SET_QUERY_AND_OFFSET':
       return { ...state, q: action.q, propsSearchOffset: action.start };
+    case 'SEARCH_AGENCIES':
+      return { ...state, w: action.w, agencySearchOffset: action.start };
     default:
       return state;
   }
@@ -40,6 +43,10 @@ export const store = createStore(reducer);
 
 export const setNewState = (newState) => {
   store.dispatch(newState);
+};
+
+export const resetState = () => {
+  store.dispatch(initialState);
 };
 
 export const getState = () => store.getState();

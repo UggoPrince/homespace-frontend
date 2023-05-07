@@ -4,7 +4,7 @@
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    background-image: url('../../../images/houses2.jpg');
+    background-image: url('../../../../images/houses2.jpg');
     overflow: auto;
     position: relative;
     z-index: 2;
@@ -31,5 +31,5 @@
     
     /*background: rgb(202, 202, 202);*/
     background-color: #eee;
-    opacity: 0.9;
+    opacity: 0.92;
 }

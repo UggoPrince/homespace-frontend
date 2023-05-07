@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { useAuth } from '../../auth/AuthProvider';
-// import { prepareSearchPageSearch } from '../../utils/EventHandlers';
 import Header, { HeaderBottomMargin } from '../../components/Header';
 import LandingPage from '../landing';
 import HomeBody from './body';
@@ -32,7 +31,7 @@ class HomePage extends Component {
     const qEmpty = q === undefined;
     return (
       <Home qEmpty={qEmpty} start={propsSearchOffset} q={q}>
-        <div className="2xl:container min-ht-vh relative">
+        <div className="w-full min-ht-vh relative">
           <Header search={q} offset={propsSearchOffset} />
           <Properties property={property} number={2}>
             <HeaderBottomMargin />

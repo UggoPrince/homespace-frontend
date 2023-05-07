@@ -10,7 +10,8 @@ query {
         price
         intent
         units
-        agency { name, address }
+        currency
+        agency { name, address, username }
         photos { photo }
       }
       count
@@ -31,8 +32,31 @@ query ($offset: Int, $limit: Int, $search: String) {
       units
       state
       country
-      agency { id, name, address }
+      currency
+      agency { id, name, address, username }
       photos { photo }
+    }
+    count
+  }
+}
+`;
+
+export const GET_PROPERTIES_START_WITH_COUNTRY = gql`
+  query($offset: Int, $limit: Int, $search: String) {
+    getPropertiesStartWithCountry(offset: $offset, limit: $limit, search: $search) {
+      properties {
+        id
+        address
+        propertyType
+        title
+        price
+        intent
+        units
+        state
+        country
+        currency
+        agency { name, address, username }
+        photos { photo }
     }
     count
   }

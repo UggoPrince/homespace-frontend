@@ -8,27 +8,26 @@ import './style.css';
 
 const HomeProperties = (props) => {
   const {
-    qString, offset, limit,
+    qString, offset, limit, searchType,
   } = props;
   const { user } = useAuth();
   const { country } = user;
   const { loading, error, data } = queryApi(qString, { search: country, offset, limit });
   if (loading) return 'Loading...';
   if (error) {
-    console.log(error);
     return `Error! ${error.message}`;
   }
-  const { getProperties } = data;
-  const { properties, count } = getProperties;
   return (
-    <HomePropertyAdapter
-      properties={properties}
-      count={count}
-      number={2}
-      loading={loading}
-      data={data}
-      offset={offset}
-    />
+    <>
+      {data && data?.getPropertiesStartWithCountry && (
+      <HomePropertyAdapter
+        number={searchType}
+        loading={loading}
+        data={data?.getPropertiesStartWithCountry}
+        offset={offset}
+      />
+      )}
+    </>
   );
 };
 
