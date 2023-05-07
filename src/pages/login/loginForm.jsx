@@ -3,11 +3,15 @@ import { useMutation } from '@apollo/client';
 import '../../components/Form/style.css';
 import toast from 'react-hot-toast';
 import TextField, { PasswordTextField } from '../../components/Input/textField';
+import InputContainer from '../../components/Input/inputContainer';
 import Button from '../../components/Button';
 import { LOGIN_USER_QUERY_STRING } from '../../data/user/queryString';
 import Alert, { notify } from '../../components/Alert';
 import { useAuth } from '../../auth/AuthProvider';
 import useForm from '../../components/Form/useForm';
+import Form from '../../components/Form';
+import { signIn } from '../../data/user/fieldProcessor';
+import { formErrorHandler } from '../../data/errorHandler';
 
 const LoginForm = () => {
   const { loginUser } = useAuth();
@@ -28,33 +32,20 @@ const LoginForm = () => {
     }
     if (error) {
       toast.remove(alertLoadingId);
-      if (error.networkError) notify('Network error. Try Again.', 2);
-      if (error.graphQLErrors && error.graphQLErrors.length > 0) {
-        notify(`${error.message}`, 2);
-        const fieldError = error.graphQLErrors[0].error;
-        if (fieldError) setErrors(fieldError);
-      }
+      formErrorHandler(error, setErrors, notify);
     }
   });
-  const signIn = (e) => {
-    e.preventDefault();
-    const {
-      email, password,
-    } = e.target;
-    login({
-      variables: {
-        email: email.value,
-        password: password.value,
-      },
-    });
+
+  const auth = (e) => {
+    signIn(e, login);
   };
 
   return (
     <div>
       <div className="container content-center">
         <div className="flex flex-row pt-16 pb-28">
-          <form onSubmit={signIn} method="POST" id="loginForm" className="mx-auto bg-white p-8 loginForm shadow-2xl rounded-lg">
-            <div className="pb-5">
+          <Form submithandler={auth} method="POST" id="loginForm" formclass="loginForm shadow-2xl">
+            <InputContainer>
               <TextField
                 name="email"
                 label="Email"
@@ -62,19 +53,19 @@ const LoginForm = () => {
                 error={errors.email}
                 required
               />
-            </div>
-            <div className="pb-5">
+            </InputContainer>
+            <InputContainer>
               <PasswordTextField
                 name="password"
                 label="Password"
                 error={errors.password}
                 required
               />
-            </div>
-            <div className="pt-5">
+            </InputContainer>
+            <InputContainer>
               <Button id="loginButton" type="submit" text="Login" />
-            </div>
-          </form>
+            </InputContainer>
+          </Form>
         </div>
       </div>
       <Alert />

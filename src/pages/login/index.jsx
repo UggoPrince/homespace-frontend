@@ -9,7 +9,7 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="2xl:container min-ht-vh relative master">
+      <div className="w-full min-ht-vh relative master">
         <Header />
         <LoginForm />
         <Footer />

@@ -5,24 +5,25 @@ import Navigation from '../Navigation';
 import { itsThisPath } from '../../Utils/Urls';
 import { setNavMenuButtonEvent, prepareSearchPageSearch } from '../../Utils/EventHandlers';
 import { useAuth } from '../../auth/AuthProvider';
+import './style.css';
 
 const SearchBar = (props) => {
   const { search } = props;
+  let { inputName } = props;
   const [searchText, setSearchText] = useState(search);
   useEffect(() => {
     setSearchText(search);
   }, [search]);
+  if (!inputName) inputName = 'searchText';
   return (
-    <div className="container hs-max-width-85 mx-auto mb-5">
-      <form id="searchForm2" className="w-full md:w-5/6 max-w-2xl py-2 px-2 rounded-3xl border border-gray-300">
+    <div className="search-bar hs-max-width-85">
+      <form id="searchForm2" className="search-bar-form">
         <input
           type="search"
-          name="searchText"
+          name={inputName}
           id="searchPageSearchTextInput"
           placeholder="Search..."
-          className=" border-transparent focus:outline-none
-          py-1 px-3
-          rounded-tl-xl rounded-bl-xl w-11/12 min-w-min"
+          className="search-input"
           defaultValue={searchText}
         />
         <button id="searchPageSearchButton" type="submit" className="cursor-pointer focus:outline-none">
@@ -40,6 +41,9 @@ const AddSearchBar = ({ props }) => {
   if (itsThisPath('/')) {
     if (search || offset || token) return <SearchBar search={search} />;
   }
+  if (itsThisPath('/agency')) {
+    if (search || offset || token) return <SearchBar search={search} inputName="searchTextForAgency" />;
+  }
   return null;
 };
 
@@ -51,8 +55,8 @@ export default class Header extends Component {
 
   render() {
     return (
-      <header className="container max-width h-auto inline-block z-10 sticky top-0 bg-white border border-b border-gray-300">
-        <div className="container py-4 flex flex-auto justify-between hs-max-width-85 mx-auto">
+      <header className="max-width header">
+        <div className="header-nav">
           <Logo />
           <Navigation />
         </div>

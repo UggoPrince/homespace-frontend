@@ -3,11 +3,23 @@ import { Toaster, toast } from 'react-hot-toast';
 
 const Alert = (props) => {
   const {
+    value, id, textDivId, bgColor, custom,
+  } = props;
+  return (
+    <div>
+      {!custom && <Toaster />}
+      {custom && <Toaster containerStyle={{ position: 'absolute', top: '80px' }} />}
+    </div>
+  );
+};
+
+export const CustomAlert = (props) => {
+  const {
     value, id, textDivId, bgColor,
   } = props;
   return (
     <div>
-      <Toaster />
+      <Toaster containerStyle={{ position: 'absolute', top: '80px' }} />
     </div>
   );
 };

@@ -1,23 +1,24 @@
 // import 'regenerator-runtime/runtime';
-import { useEffect, useState } from 'react';
-import { useMutation } from '@apollo/client';
+import { useEffect } from 'react';
 import '../../components/Form/style.css';
 import toast from 'react-hot-toast';
 import TextField, { PasswordTextField } from '../../components/Input/textField';
+import Container, { container as Container2 } from '../../components/Input/inputContainer';
 import { SIGNUP_USER_QUERY_STRING } from '../../data/user/queryString';
 import Alert, { notify } from '../../components/Alert';
 import { useAuth } from '../../auth/AuthProvider';
 import Button from '../../components/Button';
 import useForm from '../../components/Form/useForm';
+import Form from '../../components/Form';
+import { register } from '../../data/user/fieldProcessor';
+import { formErrorHandler } from '../../data/errorHandler';
+import { mutateApi } from '../../Utils/Api';
 
 const SignupForm = () => {
   const { errors, setErrors } = useForm();
   const { loginUser } = useAuth();
   let alertLoadingId;
-  const [signUp, { loading, error, data }] = useMutation(SIGNUP_USER_QUERY_STRING,
-    {
-      errorPolicy: 'all',
-    });
+  const [signUp, { loading, error, data }] = mutateApi(SIGNUP_USER_QUERY_STRING);
   useEffect(() => {
     if (loading) {
       alertLoadingId = notify('Saving...', 1);
@@ -30,69 +31,50 @@ const SignupForm = () => {
     }
     if (error) {
       toast.remove(alertLoadingId);
-      if (error.networkError) notify('Network error. Try Again.', 2);
-      if (error.graphQLErrors && error.graphQLErrors.length > 0) {
-        notify(`${error.message}`, 2);
-        const fieldError = error.graphQLErrors[0].error;
-        if (fieldError) setErrors(fieldError);
-      }
+      formErrorHandler(error, setErrors, notify);
     }
   });
-  const signup = (e) => {
-    e.preventDefault();
-    const {
-      firstname, lastname, email, password, confirmPassword, country, state, address,
-    } = e.target;
-    signUp({
-      variables: {
-        firstname: firstname.value,
-        lastname: lastname.value,
-        email: email.value,
-        password: password.value,
-        country: country.value,
-        state: state.value,
-        address: address.value,
-      },
-    });
+  const auth = (e) => {
+    register(e, signUp);
   };
 
   return (
     <div>
       <div className="container content-center">
         <div className="flex flex-row pt-10 pb-28">
-          <form onSubmit={signup} method="POST" id="signupForm" className="mx-auto bg-white p-8 signupForm shadow-2xl rounded-lg">
+          <Form submithandler={auth} method="POST" id="signupForm" formclass="signupForm shadow-2xl">
             <div className="w-full inline-block">
-              <div className="pb-5 inline-block max-w-full m-auto form-div-holder float-left">
+              <Container2 classlist="float-left">
                 <TextField name="firstname" label="First Name" error={errors.firstname} required />
-              </div>
-              <div className="pb-5 inline-block max-w-full m-auto form-div-holder float-right">
+              </Container2>
+              <Container2 classlist="float-right">
                 <TextField name="lastname" label="Last Name" error={errors.lastname} required />
-              </div>
+              </Container2>
             </div>
             <div className="w-full inline-block">
-              <div className="pb-5 inline-block max-w-full m-auto form-div-holder float-left">
+              <Container2 classlist="float-left">
                 <TextField name="country" label="Country" error={errors.country} required />
-              </div>
-              <div className="pb-5 inline-block max-w-full m-auto form-div-holder float-right">
+              </Container2>
+              <Container2 classlist="float-right">
                 <TextField name="state" label="State" error={errors.state} required />
-              </div>
+              </Container2>
             </div>
-            <div className="pb-4">
+            <Container>
               <TextField name="address" label="Address" type="text" error={errors.address} required />
-            </div>
-            <div className="pb-5">
+            </Container>
+            <Container>
               <TextField name="email" label="Email" error={errors.email} type="email" autoComplete="email" required />
-            </div>
-            <div className="pb-5">
+            </Container>
+            <Container>
               <PasswordTextField name="password" label="Password" error={errors.password} required />
-            </div>
-            <div className="pb-5">
+            </Container>
+            <Container>
               <PasswordTextField name="confirmPassword" label="Confirm Password" error={errors.confirmPassword} required />
-            </div>
-            <div className="pt-5">
+            </Container>
+            <Container>
               <Button id="signupButton" type="submit" text="Sign Up" />
-            </div>
-          </form>
+            </Container>
+          </Form>
         </div>
       </div>
       <Alert />

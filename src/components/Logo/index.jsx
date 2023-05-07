@@ -1,16 +1,22 @@
-const Logo = () => (
-  <a href="/">
-    <div
-      className="
-      text-blue-600 py-2
+import { useAuth } from '../../auth/AuthProvider';
+
+const Logo = () => {
+  const { user } = useAuth();
+  return (
+    <a href="/">
+      <div
+        className="
+      text-indigo-600 py-2
       font-black
       inline-block
       cursor-pointer
       min-h-full"
-    >
-      HomeSpace
-    </div>
-  </a>
-);
+      >
+        {!user && 'HomeSpace'}
+        {user && `${user.firstname} ${user.lastname}`}
+      </div>
+    </a>
+  );
+};
 
 export default Logo;

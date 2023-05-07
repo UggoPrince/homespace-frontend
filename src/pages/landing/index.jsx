@@ -4,6 +4,7 @@ import Hero from './Hero';
 import Footer from '../../components/Footer';
 import { prepareLandingPageSearch } from '../../Utils/EventHandlers';
 import './style.css';
+import { BaseLayout } from '../../layouts/base-layout';
 
 class LandingPage extends Component {
   constructor() {
@@ -17,12 +18,14 @@ class LandingPage extends Component {
 
   render() {
     return (
-      <div className="2xl:container min-ht-vh master relative">
+      <BaseLayout>
+        {/* <div className="2xl:container min-ht-vh master relative"> */}
         <Header />
         <HeaderBottomMargin />
         <Hero />
         <Footer />
-      </div>
+        {/* </div> */}
+      </BaseLayout>
     );
   }
 }

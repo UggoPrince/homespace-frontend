@@ -16,6 +16,13 @@ export const getUserFromLocalStorage = (key) => {
   return user;
 };
 
+export const updateLocalStorage = (key, data) => {
+  const userStr = getLocalStorage(key);
+  let user = JSON.parse(userStr);
+  user = { ...user, ...data };
+  setLocalStorage(key, JSON.stringify(user));
+};
+
 export const destroyLocalStorage = (key) => {
   const k = `${getWebUrl()}_${key}`;
   localStorage.removeItem(k);

@@ -3,9 +3,11 @@ import Routes from './routes';
 import AuthProvider from './auth/AuthProvider';
 
 const App = () => (
-  <AuthProvider>
-    <Routes />
-  </AuthProvider>
+  <div className="font-sans">
+    <AuthProvider>
+      <Routes />
+    </AuthProvider>
+  </div>
 );
 
 export default App;

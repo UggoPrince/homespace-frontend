@@ -1,44 +1,48 @@
 /* eslint-disable no-console */
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation, NavLink } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthProvider';
+import { activePaths } from '../../Utils/paths';
+import { setNewState } from '../../Utils/Store';
+import './style.css';
+
+const {
+  home, agencies, dashboard, login, signup, profilePath, logoutPath,
+} = activePaths;
 
 const HSLink = (props) => {
-  const { path, text } = props;
+  const {
+    path, text, setActive, activeText, isAuth,
+  } = props;
+  const { isActive, setIsActive } = setActive;
   return (
     <li className="flex flex-grow">
-      <Link
+      <NavLink
         to={path}
-        className="
-      md:ml-5 cursor-pointer text-indigo-600
-      font-semibold hover:bg-indigo-600 text-center
-      hover:text-white py-2 px-3 md:rounded w-40 md:w-full"
+        onClick={() => {
+          if (path === '/' && isAuth === true) {
+            setNewState({ type: 'SEARCH_PROPERTIES', q: '', start: 0 });
+          }
+          setIsActive(activeText);
+        }}
+        className={() => `nav-link 
+          ${(isActive?.current.startsWith(activeText) ? 'bg-indigo-600 text-white' : 'text-primary')}`}
       >
         {text}
-      </Link>
+      </NavLink>
     </li>
   );
 };
 
 const HSButton = (props) => {
-  const { handler, text } = props;
+  const {
+    handler, text,
+  } = props;
   return (
     <button
-      type="submit"
+      type="button"
       onClick={handler}
-      className="
-      cursor-pointer
-      text-indigo-600
-      font-semibold
-      hover:bg-indigo-600
-      hover:text-white
-      py-2
-      px-3
-      text-center
-      md:rounded
-      w-40
-      md:w-full
-      md:ml-5"
+      className="nav-button"
     >
       {text}
     </button>
@@ -48,14 +52,14 @@ const HSButton = (props) => {
 const NavBlock = ({ children }) => (
   <nav className="flex">
     <ul
-      className="
-      hidden
+      className="hidden
       absolute
       border-indigo-600
       top-12
       right-1
       border-2 rounded
-      bg-white md:visible
+      bg-white
+      md:visible
       md:bg-transparent
       md:right-0
       md:top-0
@@ -86,55 +90,87 @@ const NavBlock = ({ children }) => (
 );
 
 const HomeNavigation = (props) => {
-  const { logout } = props;
+  const { logout, user } = props;
+  const { isActive, setIsActive, isAuthenticated: auth } = useAuth();
+  // const { profile } = user;
   const logUserOut = (e) => {
     e.preventDefault();
+    setIsActive(logoutPath);
     logout();
   };
-
   return (
     <NavBlock>
-      <HSLink path="/" text="Home" />
-      <HSButton text="Logout" handler={logUserOut} />
+      <HSLink path="/" text="Home" isAuth={auth} setActive={{ isActive, setIsActive }} activeText={home} />
+      <HSLink path="/agencies" text="Agencies" setActive={{ isActive, setIsActive }} activeText={agencies} />
+      {
+        user
+        && user?.profile
+        && user?.profile?.hasAgency === true
+        && <HSLink path="/dashboard" text="Dashboard" setActive={{ isActive, setIsActive }} activeText={dashboard} />
+      }
+      {user && <HSLink path="/profile" text="Profile" setActive={{ isActive, setIsActive }} activeText={profilePath} />}
+      {!user && <HSLink path="/login" text="Log In" setActive={{ isActive, setIsActive }} activeText={login} />}
+      {!user && <HSLink path="/signup" text="Sign Up" setActive={{ isActive, setIsActive }} activeText={signup} />}
+      {user && <HSButton text="Logout" handler={logUserOut} />}
     </NavBlock>
   );
 };
 
-const LandingNavigation = () => (
-  <NavBlock>
-    <HSLink path="/login" text="Log In" />
-    <HSLink path="/signup" text="Sign Up" />
-  </NavBlock>
-);
+const LandingNavigation = ({ setActive }) => {
+  const { isActive, setIsActive } = useAuth();
+  return (
+    <NavBlock>
+      <HSLink path="/agencies" text="Agencies" setActive={{ isActive, setIsActive }} activeText={agencies} />
+      <HSLink path="/login" text="Log In" setActive={{ isActive, setIsActive }} activeText={login} />
+      <HSLink path="/signup" text="Sign Up" setActive={{ isActive, setIsActive }} activeText={signup} />
+    </NavBlock>
+  );
+};
 
-const SignupNavigation = () => (
-  <NavBlock>
-    <HSLink path="/" text="Home" />
-    <HSLink path="/login" text="Log In" />
-  </NavBlock>
-);
+const SignupNavigation = ({ setActive }) => {
+  const { isActive, setIsActive, isAuthenticated: auth } = useAuth();
+  return (
+    <NavBlock>
+      <HSLink path="/" text="Home" isAuth={auth} setActive={{ isActive, setIsActive }} activeText={home} />
+      <HSLink path="/agencies" text="Agencies" setActive={{ isActive, setIsActive }} activeText={agencies} />
+      <HSLink path="/login" text="Log In" setActive={{ isActive, setIsActive }} activeText={login} />
+    </NavBlock>
+  );
+};
 
-const LoginNavigation = () => (
-  <NavBlock>
-    <HSLink path="/" text="Home" />
-    <HSLink path="/signup" text="Sign Up" />
-  </NavBlock>
-);
+const LoginNavigation = ({ setActive }) => {
+  const { isActive, setIsActive, isAuthenticated: auth } = useAuth();
+  return (
+    <NavBlock>
+      <HSLink path="/" text="Home" isAuth={auth} setActive={{ isActive, setIsActive }} activeText={home} />
+      <HSLink path="/agencies" text="Agencies" setActive={{ isActive, setIsActive }} activeText={agencies} />
+      <HSLink path="/signup" text="Sign Up" setActive={{ isActive, setIsActive }} activeText={signup} />
+    </NavBlock>
+  );
+};
 
 const Navigation = () => {
   const location = useLocation();
   const path = location.pathname.toLowerCase();
-  const { token, logout } = useAuth();
+  const { token, logout, user } = useAuth();
+  const dashboardNav = String(path).startsWith('/dashboard');
+  const agencyNav = String(path).startsWith('/agencies');
   let Nav = '';
   if (path === '/signup') {
     Nav = <SignupNavigation />;
-  }
-  if (path === '/login') {
+  } else if (path === '/login') {
     Nav = <LoginNavigation />;
-  }
-  if (path === '/') {
-    if (token) Nav = <HomeNavigation logout={logout} />;
+  } else if (path === '/') {
+    if (token) Nav = <HomeNavigation user={user} logout={logout} />;
     else Nav = <LandingNavigation />;
+  } else if (path === '/agencies') {
+    Nav = <HomeNavigation user={user} logout={logout} />;
+  } else if (path === '/profile') {
+    Nav = <HomeNavigation user={user} logout={logout} />;
+  } else if (dashboardNav) {
+    Nav = <HomeNavigation user={user} logout={logout} />;
+  } else if (agencyNav) {
+    Nav = <HomeNavigation user={user} logout={logout} />;
   }
   return Nav;
 };

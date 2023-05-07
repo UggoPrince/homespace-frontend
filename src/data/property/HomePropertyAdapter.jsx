@@ -1,15 +1,14 @@
 import PropertyCard from '../../components/PropertyCard';
 import Pager from '../../components/SearchPaginator';
-import { displayCardDetails } from '../../Utils/EventHandlers';
+import { moveToNewPropertyPage } from '../../Utils/EventHandlers';
 
 export default (props) => {
   const {
-    properties, count, number, loading, data, offset,
+    number, loading, data, offset,
   } = props;
+  const { properties, count } = data;
   const returnPropCard = (propObj) => (
-    <div key={propObj.id} onClick={(e) => displayCardDetails(e, propObj, number)} className="cursor-pointer">
-      <PropertyCard property={propObj} />
-    </div>
+    <PropertyCard key={propObj.id} property={propObj} number={number} />
   );
   const propertiesInDom = properties.map((propObj) => returnPropCard(propObj));
   let pageIndex = 0;
@@ -21,15 +20,26 @@ export default (props) => {
   if (isPage1) itemCount = <div>{`About ${count} results`}</div>;
 
   return (
-    <div className="">
+    <div className="block w-full min-h-full mx-auto">
       <div className="w-auto mb-10 text-lg">
         {itemCount}
       </div>
-      <div className="flex flex-row flex-wrap gap-7 justify-center md:justify-start lg:justify-items-stretch w-full">
+      <div className="
+        flex
+        flex-row
+        flex-wrap
+        gap-8
+        justify-center
+        sm:justify-center
+        md:justify-between
+        xl:justify-start
+        xl:gap-[2.75rem]
+        w-full"
+      >
         {propertiesInDom}
       </div>
       <div className="mt-16 w-full">
-        <Pager counted={count} offset={offset} />
+        <Pager counted={count} offset={offset} pageChanger={moveToNewPropertyPage} />
       </div>
     </div>
   );

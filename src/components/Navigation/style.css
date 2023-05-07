@@ -1,0 +1,41 @@
+.nav-link {
+    @apply
+    md:ml-5 cursor-pointer
+    font-semibold hover:bg-indigo-600 text-center
+    hover:text-white py-2 px-3 md:rounded w-40 md:w-full
+}
+.nav-button {
+    @apply
+    cursor-pointer
+    text-indigo-600
+    font-semibold
+    hover:bg-indigo-600
+    hover:text-white
+    py-2
+    px-3
+    text-center
+    md:rounded
+    w-40
+    md:w-full
+    md:ml-5
+}
+.nav-block {
+    @apply
+    hidden
+    absolute
+    border-indigo-600
+    top-12
+    right-1
+    border-2 rounded
+    bg-white
+    md:visible
+    md:bg-transparent
+    md:right-0
+    md:top-0
+    md:w-auto
+    md:flex
+    md:relative
+    md:border-solid
+    md:border-0
+    md:border-transparent
+}
