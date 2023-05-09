@@ -28,6 +28,7 @@ const authLink = setContext((_, { headers }) => {
     headers: {
       ...headers,
       authorization: `Bearer ${token}`,
+      'Access-Control-Allow-Origin': '*',
     },
   };
 });
