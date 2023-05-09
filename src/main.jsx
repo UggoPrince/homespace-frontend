@@ -28,7 +28,7 @@ const authLink = setContext((_, { headers }) => {
     headers: {
       ...headers,
       authorization: `Bearer ${token}`,
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': 'https://homespace.vercel.app/',
     },
   };
 });
