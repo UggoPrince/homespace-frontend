@@ -25,7 +25,7 @@ export const GET_AGENCY_AND_PROPERTIES = gql`
 export const GET_AGENCIES = gql`
   query ($offset: Int, $limit: Int, $name: String, $address: String, $about: String, $country: String, $state: String) {
     getAgencies(offset: $offset, limit: $limit, name: $name, address: $address, about: $about, country: $country, state: $state) {
-      count, rows {id, name, username, country, state, address, phoneNumber, email, about,
+      count, agencies {id, name, username, country, state, address, phoneNumber, email, about,
         banner, facebook, instagram, twitter, whatsapp, properties(
                       offset: 0,
                       limit: 100
@@ -38,7 +38,7 @@ export const GET_AGENCIES = gql`
 export const GET_USER_AGENCIES = gql`
   query ($offset: Int, $limit: Int) {
     getUsersAgencies(offset: $offset, limit: $limit) {
-      count, rows {
+      count, agencies {
         id, name, username, country, state, address, phoneNumber, email, about,
         banner, facebook, instagram, twitter, whatsapp
       }

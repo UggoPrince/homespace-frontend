@@ -15,7 +15,7 @@ export default (props) => {
   const {
     loading, offset, agenciesData, mine,
   } = props;
-  const { count, rows: agencies } = agenciesData;
+  const { count, agencies } = agenciesData;
   const returnAgencyCard = (agencyObj) => <AgencyCard key={agencyObj.id} agency={agencyObj} mine={mine} />;
   // const count = agencies.length;
   if (count === 0) {
